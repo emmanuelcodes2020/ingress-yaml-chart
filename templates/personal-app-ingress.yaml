@@ -1,0 +1,64 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: testing-app-ingress-service
+  namespace: {{ .Values.devnamespace }}
+  labels:
+    name: testing-app-ingress-service
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: testing-app.globalfrontierlink.co.uk
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: {{ .Values.testingservice }}
+            port: 
+              number: 80
+
+  - host: jenkins-app.globalfrontierlink.co.uk
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: {{ .Values.jenkinsservice }}
+            port: 
+              number: 8080
+
+  - host: personal-app.globalfrontierlink.co.uk
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: {{ .Values.personalservice }}
+            port: 
+              number: 80
+
+  - host: wordpress-app.globalfrontierlink.co.uk
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: {{ .Values.wordpressservice }}
+            port: 
+              number: 80
+
+  - host: vault-app.globalfrontierlink.co.uk
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: {{ .Values.vaultservice }}
+            port:
+              number: 80
